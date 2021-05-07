@@ -1,14 +1,13 @@
 const fastify = require('fastify')({ logger: true });
 
-const userController = require('./controllers/user.controller');
+const userRoutes = require('./api/routes/user.routes');
 
-fastify.register(userController);
+fastify.register(userRoutes, { prefix: '/users' });
 
-fastify.listen(4000, function (err, address) {
-  if (err) {
-    fastify.log.error(err);
+fastify
+  .listen(4000)
+  .then((address) => console.log(`server listening on ${address}`))
+  .catch((err) => {
+    console.log('Error starting server:', err);
     process.exit(1);
-  }
-
-  fastify.log.info(`server listening on ${address}`);
-});
+  });
