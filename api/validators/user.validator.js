@@ -1,3 +1,16 @@
+const validateUserLogin = {
+  schema: {
+    body: {
+      type: 'object',
+      required: ['email', 'password'],
+      properties: {
+        email: { type: 'string' },
+        password: { type: 'string' },
+      },
+    },
+  },
+};
+
 const validateUserCreate = {
   schema: {
     body: {
@@ -30,6 +43,7 @@ const validateUserUpdate = {
 };
 
 module.exports = {
+  validateUserLogin,
   validateUserCreate,
   validateUserUpdate,
 };

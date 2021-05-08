@@ -1,7 +1,11 @@
+require('dotenv').config();
 const fastify = require('fastify')({ logger: true });
+const fasfityJwt = require('fastify-jwt');
 
-const userRoutes = require('./api/routes/user.routes');
+const userRoutes = require('./api/controllers/user.controller');
 
+fastify.register(fasfityJwt, { secret: process.env.JWT_SECRET });
+fastify.register(require('./api/plugins/authenticate'));
 fastify.register(userRoutes, { prefix: '/users' });
 
 fastify
@@ -11,3 +15,5 @@ fastify
     console.log('Error starting server:', err);
     process.exit(1);
   });
+
+module.exports = fastify;
